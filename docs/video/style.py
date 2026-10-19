@@ -42,6 +42,10 @@ from manim import (
 )
 
 HERE = Path(__file__).parent
+if not (HERE / "out" / "timing.json").exists():
+    raise SystemExit(
+        "out/timing.json is missing: run `uv run python narration.py` first (see README)"
+    )
 TIMING = json.loads((HERE / "out" / "timing.json").read_text())
 ORDER = list(TIMING["duration"])
 TOTAL = sum(TIMING["duration"].values())

@@ -71,6 +71,25 @@ uv run ruff check . && uv run pytest
 bash scripts/paper_figs/make_all.sh   # paper figures from reports/
 ```
 
+## Talk video
+
+The video is rendered from code. You need system packages: ffmpeg, Cairo and Pango (for Manim), and the Inter font. Then:
+
+```bash
+cd docs/video
+uv sync
+mkdir -p voices && (cd voices && uv run python -m piper.download_voices en_US-ryan-high)
+uv run python narration.py                # narration (Piper TTS) and out/timing.json
+uv run python recorder.py                 # optional: record your own voice, http://127.0.0.1:8765
+uv run python narration.py --recordings   # ... then use your takes where recorded
+bash assemble.sh                          # render all scenes at 1080p60 and mux them with the narration
+curl -L -o music/clean_soul.mp3 --create-dirs \
+  "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Clean%20Soul.mp3"
+bash finish.sh                            # music bed + subtitle band -> out/simbig2026_qxp_talk_final.mp4
+```
+
+Every animation is synchronized to the start of each narration sentence (`out/timing.json`), so the video re-times itself to any voice.
+
 ## Credits
 
 - **Models:** Omnilingual ASR (Meta) and Whisper (OpenAI). `src/qxp_asr/nbest.py` adapts code from facebookresearch/omnilingual-asr (Apache-2.0).
