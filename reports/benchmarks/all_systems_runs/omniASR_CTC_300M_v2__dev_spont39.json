@@ -1,0 +1,1 @@
+{"name": "omniASR_CTC_300M_v2", "set": "dev_spont39", "params": 325982896, "seconds": 1022.6068229675293, "audio_s": 5273.460000000001, "model": "omniASR_CTC_300M_v2", "decoder": "pipeline"}

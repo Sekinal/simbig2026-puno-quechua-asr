@@ -1,0 +1,7 @@
+role,subset,wer,cer,n,model
+dev_scripted,all,15.114745449749407,2.4847237810200773,948,whisper-base-qxp-finetuned
+dev_scripted,unseen,14.464285714285715,2.3928004235044997,278,whisper-base-qxp-finetuned
+dev_spont,all,35.159738921332874,19.075356336914382,310,whisper-base-qxp-finetuned
+itest_scripted,all,14.362151506617854,2.582719978781248,909,whisper-base-qxp-finetuned
+itest_scripted,unseen,14.173913043478262,2.543493743005392,297,whisper-base-qxp-finetuned
+itest_spont,all,12.285012285012286,5.853822702617096,304,whisper-base-qxp-finetuned

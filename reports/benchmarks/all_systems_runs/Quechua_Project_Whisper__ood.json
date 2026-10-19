@@ -1,0 +1,1 @@
+{"name": "Quechua_Project_Whisper", "set": "ood", "params": 37760640, "seconds": 167.47076725959778, "audio_s": 954.5008125000002, "model": "cportoca/Quechua_Project_Whisper", "decoder": "whisper greedy"}

@@ -1,0 +1,1 @@
+{"name": "wav2vec2-large-xls-r-300m-quechua-colab", "set": "ood", "params": 315486895, "seconds": 168.36141633987427, "audio_s": 954.5008125000002, "model": "LuiyiA/wav2vec2-large-xls-r-300m-quechua-colab", "decoder": "ctc greedy"}

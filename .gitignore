@@ -1,0 +1,21 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+.ruff_cache/
+.pytest_cache/
+data/raw/
+data/audio/
+/artifacts/
+/outputs/
+/runs/
+wandb/
+*.tar.gz
+*.ckpt
+*.pt
+*.safetensors
+.playwright-cli/
+
+# local human-review workspace (audio + decisions; not tracked)
+/review/
+submission/

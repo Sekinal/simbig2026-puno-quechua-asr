@@ -1,0 +1,1 @@
+{"name": "whisper-small-quechua-yachay", "set": "ood", "params": 241734912, "seconds": 282.78113555908203, "audio_s": 954.5008125000002, "model": "ppyecom/whisper-small-quechua-yachay", "decoder": "whisper greedy"}

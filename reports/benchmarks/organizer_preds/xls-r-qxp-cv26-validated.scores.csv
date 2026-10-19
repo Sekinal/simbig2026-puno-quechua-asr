@@ -1,0 +1,7 @@
+role,subset,wer,cer,n,model
+dev_scripted,all,20.047480875758374,3.2017707943633873,948,xls-r-qxp-cv26-validated
+dev_scripted,unseen,17.5,2.8586553732133404,278,xls-r-qxp-cv26-validated
+dev_spont,all,8.777052559257987,1.4060601384843867,310,xls-r-qxp-cv26-validated
+itest_scripted,all,21.233455364686005,3.7994827929182415,909,xls-r-qxp-cv26-validated
+itest_scripted,unseen,21.82608695652174,3.744022789703937,297,xls-r-qxp-cv26-validated
+itest_spont,all,2.457002457002457,0.32466246981034963,304,xls-r-qxp-cv26-validated

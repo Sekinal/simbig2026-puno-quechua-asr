@@ -1,0 +1,1 @@
+{"name": "wav2vec2-large-xls-r-300m-asp-project-quechua", "set": "ood", "params": 315475620, "seconds": 174.15379333496094, "audio_s": 954.5008125000002, "model": "gaalocastillo/wav2vec2-large-xls-r-300m-asp-project-quechua", "decoder": "ctc greedy"}

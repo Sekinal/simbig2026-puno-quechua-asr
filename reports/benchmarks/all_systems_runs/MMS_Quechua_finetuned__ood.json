@@ -1,0 +1,1 @@
+{"name": "MMS_Quechua_finetuned", "set": "ood", "params": 964688287, "seconds": 399.8889079093933, "audio_s": 954.5008125000002, "model": "cportoca/MMS_Quechua_finetuned", "decoder": "ctc greedy"}

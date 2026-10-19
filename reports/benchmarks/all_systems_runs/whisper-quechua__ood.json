@@ -1,0 +1,1 @@
+{"name": "whisper-quechua", "set": "ood", "params": 241734912, "seconds": 758.8520095348358, "audio_s": 954.5008125000002, "model": "LastEngineer01/whisper-quechua", "decoder": "whisper greedy"}

@@ -1,0 +1,1 @@
+{"name": "CS224S_Quechua_Project_Expanded_Dataset", "set": "ood", "params": 605709151, "seconds": 335.93819785118103, "audio_s": 954.5008125000002, "model": "cportoca/CS224S_Quechua_Project_Expanded_Dataset", "decoder": "ctc greedy"}

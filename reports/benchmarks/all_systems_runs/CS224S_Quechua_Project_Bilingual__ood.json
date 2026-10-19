@@ -1,0 +1,1 @@
+{"name": "CS224S_Quechua_Project_Bilingual", "set": "ood", "params": 605716326, "seconds": 338.1605951786041, "audio_s": 954.5008125000002, "model": "cportoca/CS224S_Quechua_Project_Bilingual", "decoder": "ctc greedy"}

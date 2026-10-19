@@ -1,0 +1,25 @@
+set,reviewed_share,words_per_audio_hour,verifier,random,oracle
+dev spontaneous,0.0,0,13.14,13.14,13.14
+dev spontaneous,0.02,75,11.95,12.98,10.99
+dev spontaneous,0.05,187,10.21,12.63,7.78
+dev spontaneous,0.1,374,8.48,12.0,2.42
+dev spontaneous,0.15,561,6.76,11.34,0.0
+dev spontaneous,0.2,748,5.3,10.64,0.0
+dev spontaneous,0.3,1122,3.7,9.52,0.0
+dev spontaneous,0.5,1870,2.05,6.63,0.0
+itest spontaneous,0.0,0,6.1,6.1,6.1
+itest spontaneous,0.02,73,5.18,6.03,4.05
+itest spontaneous,0.05,182,4.05,5.87,0.95
+itest spontaneous,0.1,365,2.75,5.51,0.0
+itest spontaneous,0.15,547,2.3,5.18,0.0
+itest spontaneous,0.2,731,2.05,4.75,0.0
+itest spontaneous,0.3,1096,1.6,4.3,0.0
+itest spontaneous,0.5,1826,0.83,3.15,0.0
+OOD radio,0.0,0,15.11,15.11,15.11
+OOD radio,0.02,109,13.37,14.95,12.92
+OOD radio,0.05,272,11.56,14.43,9.67
+OOD radio,0.1,547,9.52,13.52,4.15
+OOD radio,0.15,818,7.02,12.61,0.0
+OOD radio,0.2,1090,5.51,11.86,0.0
+OOD radio,0.3,1637,3.85,10.57,0.0
+OOD radio,0.5,2731,1.89,7.18,0.0

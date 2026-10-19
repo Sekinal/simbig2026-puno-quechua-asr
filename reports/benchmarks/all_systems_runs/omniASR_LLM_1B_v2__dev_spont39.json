@@ -1,0 +1,1 @@
+{"name": "omniASR_LLM_1B_v2", "set": "dev_spont39", "params": 2279609984, "seconds": 14826.876559972763, "audio_s": 5273.460000000001, "model": "omniASR_LLM_1B_v2", "decoder": "pipeline"}

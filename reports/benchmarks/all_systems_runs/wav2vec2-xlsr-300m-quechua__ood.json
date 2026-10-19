@@ -1,0 +1,1 @@
+{"name": "wav2vec2-xlsr-300m-quechua", "set": "ood", "params": 315482795, "seconds": 167.6796157360077, "audio_s": 954.5008125000002, "model": "ivangtorre/wav2vec2-xlsr-300m-quechua", "decoder": "ctc greedy"}

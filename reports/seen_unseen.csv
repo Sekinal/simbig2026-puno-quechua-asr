@@ -1,0 +1,8 @@
+system,dev seen,dev unseen,itest seen,itest unseen
+zs_llm7b_all,24.52,21.25,28.32,27.91
+ctc1b_v3_soup_wise0.85_greedy,14.11,14.64,16.7,21.3
+llm7b_lora_v1,15.65,12.59,19.03,20.17
+llm7b_lora_v2,15.69,13.12,18.58,20.17
+hybrid_dev_in,10.26,9.82,12.08,17.39
+hybrid_dev_aug,10.0,9.73,11.91,16.87
+ctc_v3_in (CTC + word LM),5.99,18.66,7.54,25.04

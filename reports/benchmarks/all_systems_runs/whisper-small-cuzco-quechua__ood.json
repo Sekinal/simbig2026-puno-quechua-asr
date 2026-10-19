@@ -1,0 +1,1 @@
+{"name": "whisper-small-cuzco-quechua", "set": "ood", "params": 241734912, "seconds": 404.7372283935547, "audio_s": 954.5008125000002, "model": "pollitoconpapass/whisper-small-cuzco-quechua", "decoder": "whisper greedy"}

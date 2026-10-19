@@ -1,0 +1,13 @@
+model,comparison,set,diff,lo,hi,p,design
+omniASR-LLM-300M,encoder - decoder,itest_unseen,5.57,2.20,9.96,0.0024,speaker x sentence bootstrap
+omniASR-LLM-1B,encoder - decoder,itest_unseen,0.70,-2.10,3.97,0.6228,speaker x sentence bootstrap
+omniASR-LLM-7B,encoder - decoder,itest_unseen,-3.74,-7.22,-0.72,,speaker x sentence bootstrap
+Whisper-large-v3 (seed 0),encoder - decoder,itest_unseen,-6.35,-13.00,-1.14,0.0172,speaker x sentence bootstrap
+Whisper-large-v3 (seed 1),encoder - decoder,itest_unseen,-4.61,-12.82,1.70,0.1544,speaker x sentence bootstrap
+omniASR-LLM-300M,encoder(param-matched) - decoder,itest_unseen,3.04,-0.11,6.34,0.0592,speaker x sentence bootstrap
+omniASR-LLM-1B,encoder(param-matched) - decoder,itest_unseen,0.52,-2.50,3.98,0.7628,speaker x sentence bootstrap
+omniASR-LLM-1B,enc+dec - decoder,itest_unseen,-0.43,-2.81,2.04,0.7532,speaker x sentence bootstrap
+omniASR-LLM-300M,enc+dec - decoder,itest_unseen,0.78,-2.31,3.40,0.6068,speaker x sentence bootstrap
+omniASR-LLM-7B,enc+dec - decoder,itest_unseen,-4.17,-7.3,-1.5,0.006,speaker x sentence bootstrap
+Whisper-large-v3 (seed 0),encoder - decoder,ood,-8.76,-11.36,-6.21,0.0,clip bootstrap
+Whisper-large-v3 (seed 1),encoder - decoder,ood,-7.63,-10.95,-4.42,0.0,clip bootstrap

@@ -1,0 +1,219 @@
+<!doctype html>
+<!-- Local human-review tool for verifier-flagged words (scripts/make_review.py builds data.js and
+     the audio folder next to this page). Runs offline from disk; decisions are kept in the
+     browser's localStorage and exported as JSON. Never used on the shared-task test set. -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Revisión de transcripciones · qxp</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { --bg:#fcfcfb; --ink:#0b0b0b; --muted:#52514e; --line:#e4e3df; --flag:#fff1c2;
+          --pick:#2a78d6; --card:#ffffff; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#1a1a19; --ink:#ffffff; --muted:#c3c2b7; --line:#3a3a37; --flag:#4a3d10;
+            --pick:#3987e5; --card:#222221; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+         font:16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 860px; margin: 0 auto; padding: 16px; }
+  h1 { font-size: 20px; margin: 4px 0 8px; }
+  details { color: var(--muted); margin-bottom: 12px; }
+  .bar { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin: 12px 0; }
+  button { font: inherit; padding: 6px 12px; border-radius: 6px; border: 1px solid var(--line);
+           background: var(--card); color: var(--ink); cursor: pointer; }
+  button.primary { background: var(--pick); color: #fff; border-color: var(--pick); }
+  audio { width: 100%; }
+  .transcript { font-size: 22px; line-height: 1.9; padding: 12px; background: var(--card);
+                border: 1px solid var(--line); border-radius: 8px; }
+  .w { padding: 2px 3px; border-radius: 4px; cursor: pointer; }
+  .w.now { box-shadow: inset 0 -4px 0 var(--pick); }
+  .slot.now { border-color: var(--pick); }
+  .time { font-variant-numeric: tabular-nums; }
+  .w.flag { background: var(--flag); outline: 2px solid transparent; }
+  .w.flag.done { text-decoration: underline; }
+  .slot { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin: 10px 0;
+          background: var(--card); }
+  .slot h3 { margin: 0 0 6px; font-size: 15px; color: var(--muted); font-weight: 500; }
+  .opt { display:block; padding: 4px 0; font-size: 18px; }
+  .opt input[type=text] { font: inherit; padding: 2px 6px; width: 60%; }
+  .muted { color: var(--muted); font-size: 14px; }
+  .progress { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; }
+  .progress > div { height: 100%; background: var(--pick); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Revisión de palabras marcadas · Puno Quechua</h1>
+  <details>
+    <summary>Instrucciones / Instructions</summary>
+    <p>Escucha el audio. Las palabras resaltadas son las que el sistema considera dudosas. Para cada
+    una, elige la opción que mejor corresponde a lo que se oye: una de las alternativas, <b>— (sin
+    palabra)</b> si esa palabra no se dice, <b>Otra</b> para escribir otra forma, o <b>No sé</b> si no
+    puedes decidir. "No sé" es una respuesta válida y útil.</p>
+    <p class="muted">Ortografía de Puno: q (uvular, más atrás que k), h tras consonante = aspirada
+    (kh, ph, qh, chh, th), apóstrofo = eyectiva (k', p', q', ch', t'), ll, ñ, sh; solo vocales a, i,
+    u en palabras quechuas. Las palabras prestadas del castellano se escriben como se oyen.</p>
+    <p class="muted">La palabra que suena se subraya en azul; haz clic en cualquier palabra para
+    saltar a ese momento, o usa <b>▶ escuchar</b> para oír solo esa parte.</p>
+    <p class="muted">Atajos: <b>espacio</b> reproducir/pausar · <b>1–9</b> elegir opción en la
+    primera palabra pendiente · <b>0</b> No sé · <b>n</b> siguiente · <b>p</b> anterior.</p>
+  </details>
+  <div class="progress"><div id="prog"></div></div>
+  <div class="bar">
+    <span id="counter" class="muted"></span>
+    <button id="slow">Velocidad 0.75×</button>
+    <button id="prev">← Anterior</button>
+    <button id="next" class="primary">Siguiente →</button>
+    <button id="export">Exportar decisiones</button>
+  </div>
+  <audio id="audio" controls preload="auto"></audio>
+  <p class="transcript" id="transcript"></p>
+  <div id="slots"></div>
+  <p class="muted" id="status"></p>
+</main>
+<script src="data.js"></script>
+<script>
+const KEY = "qxp_review_v1";
+let state = {};
+try { state = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { state = {}; }
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} };
+let idx = Math.min(state.__pos || 0, ITEMS.length - 1);
+const audio = document.getElementById("audio");
+
+function rec(it) {
+  if (!state[it.id]) state[it.id] = { answers: {}, seconds: 0 };
+  return state[it.id];
+}
+
+function render() {
+  const it = ITEMS[idx];
+  const r = rec(it);
+  state.__pos = idx; save();
+  document.getElementById("counter").textContent = `Clip ${idx + 1} / ${ITEMS.length}`;
+  const done = ITEMS.filter(x => state[x.id] && x.slots.filter(s => s.flagged)
+    .every(s => state[x.id].answers[s.k] !== undefined)).length;
+  document.getElementById("prog").style.width = `${100 * done / ITEMS.length}%`;
+  if (audio.getAttribute("src") !== it.audio) audio.src = it.audio;  // keep playback on re-render
+  const tr = document.getElementById("transcript");
+  tr.innerHTML = "";
+  it.slots.forEach(s => {
+    if (!s.flagged && s.word === "") return;
+    const span = document.createElement("span");
+    span.className = "w" + (s.flagged ? " flag" : "") + (r.answers[s.k] !== undefined ? " done" : "");
+    span.textContent = s.word === "" ? "[ ? ]" : s.word;
+    span.dataset.t0 = s.t0 ?? 0; span.dataset.t1 = s.t1 ?? 0; span.dataset.k = s.k;
+    span.title = fmt(s.t0 ?? 0);
+    span.addEventListener("click", () => playRange((s.t0 ?? 0) - 0.15, null));
+    tr.appendChild(span); tr.appendChild(document.createTextNode(" "));
+  });
+  const box = document.getElementById("slots");
+  box.innerHTML = "";
+  it.slots.filter(s => s.flagged).forEach((s, n) => {
+    const div = document.createElement("div");
+    div.className = "slot";
+    const shown = s.word === "" ? "(posible palabra faltante)" : `«${s.word}»`;
+    div.dataset.k = s.k;
+    div.innerHTML = `<h3>Palabra ${n + 1}: ${shown} · <span class="time">${fmt(s.t0 ?? 0)}</span>
+      <button class="play">▶ escuchar</button></h3>`;
+    div.querySelector(".play").addEventListener("click",
+      () => playRange((s.t0 ?? 0) - 0.5, (s.t1 ?? 0) + 0.5));
+    const opts = s.alts.map(a => ({ value: a, label: a === "" ? "— (sin palabra)" : a }));
+    opts.forEach((o, j) => div.appendChild(option(it, s, o.value, `${j + 1}. ${o.label}`)));
+    const other = option(it, s, "__other__", "Otra: ");
+    const inp = document.createElement("input");
+    inp.type = "text";
+    inp.value = (r.answers[s.k] && r.answers[s.k].other) || "";
+    inp.addEventListener("input", () => {
+      r.answers[s.k] = { choice: "__other__", other: inp.value.trim().toLowerCase() }; save();
+      other.querySelector("input[type=radio]").checked = true;
+    });
+    other.appendChild(inp);
+    div.appendChild(other);
+    div.appendChild(option(it, s, "__unsure__", "0. No sé"));
+    box.appendChild(div);
+  });
+  document.getElementById("status").textContent =
+    `${done} clips completos · las decisiones se guardan en este navegador`;
+  window.__shown = performance.now();
+}
+
+function fmt(t) {
+  const m = Math.floor(t / 60), sec = (t - 60 * m).toFixed(1).padStart(4, "0");
+  return `${m}:${sec}`;
+}
+let stopAt = null;
+function playRange(from, to) {
+  audio.currentTime = Math.max(0, from);
+  stopAt = to;
+  audio.play();
+}
+audio.addEventListener("timeupdate", () => {
+  const t = audio.currentTime;
+  if (stopAt !== null && t >= stopAt) { audio.pause(); stopAt = null; }
+  let nowK = null;
+  document.querySelectorAll("#transcript .w").forEach(el => {
+    const on = t >= +el.dataset.t0 && t < Math.max(+el.dataset.t1, +el.dataset.t0 + 0.15);
+    el.classList.toggle("now", on && !audio.paused);
+    if (on) nowK = el.dataset.k;
+  });
+  document.querySelectorAll(".slot").forEach(el =>
+    el.classList.toggle("now", !audio.paused && el.dataset.k === nowK));
+});
+audio.addEventListener("pause", () => document.querySelectorAll(".now")
+  .forEach(el => el.classList.remove("now")));
+
+function option(it, s, value, label) {
+  const r = rec(it);
+  const lab = document.createElement("label");
+  lab.className = "opt";
+  const inp = document.createElement("input");
+  inp.type = "radio"; inp.name = `s${s.k}`; inp.value = value;
+  inp.checked = r.answers[s.k] && r.answers[s.k].choice === value;
+  inp.addEventListener("change", () => {
+    r.answers[s.k] = { choice: value, other: r.answers[s.k] && r.answers[s.k].other || "" };
+    save(); render();
+  });
+  lab.appendChild(inp);
+  lab.appendChild(document.createTextNode(" " + label));
+  return lab;
+}
+
+function leave() {
+  const r = rec(ITEMS[idx]);
+  r.seconds += (performance.now() - (window.__shown || performance.now())) / 1000;
+  save();
+}
+document.getElementById("next").onclick = () => { leave(); if (idx < ITEMS.length - 1) idx++; render(); };
+document.getElementById("prev").onclick = () => { leave(); if (idx > 0) idx--; render(); };
+document.getElementById("slow").onclick = (e) => {
+  audio.playbackRate = audio.playbackRate === 1 ? 0.75 : 1;
+  e.target.textContent = audio.playbackRate === 1 ? "Velocidad 0.75×" : "Velocidad 1×";
+};
+document.getElementById("export").onclick = () => {
+  leave();
+  const out = {};
+  ITEMS.forEach(it => { if (state[it.id]) out[it.id] = state[it.id]; });
+  const blob = new Blob([JSON.stringify(out, null, 1)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = "review_decisions.json"; a.click();
+};
+document.addEventListener("keydown", (e) => {
+  if (e.target.tagName === "INPUT" && e.target.type === "text") return;
+  if (e.key === " ") { e.preventDefault(); audio.paused ? audio.play() : audio.pause(); return; }
+  if (e.key === "n") { document.getElementById("next").click(); return; }
+  if (e.key === "p") { document.getElementById("prev").click(); return; }
+  const it = ITEMS[idx], r = rec(it);
+  const pending = it.slots.filter(s => s.flagged).find(s => r.answers[s.k] === undefined);
+  if (!pending) return;
+  if (e.key === "0") { r.answers[pending.k] = { choice: "__unsure__", other: "" }; save(); render(); }
+  const j = parseInt(e.key, 10);
+  if (j >= 1 && j <= pending.alts.length) {
+    r.answers[pending.k] = { choice: pending.alts[j - 1], other: "" }; save(); render();
+  }
+});
+render();
+</script>
+</body>
+</html>

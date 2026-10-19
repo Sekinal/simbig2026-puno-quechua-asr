@@ -1,0 +1,1 @@
+{"name": "wav2vec2-puno-quechua-ft-cpt-validated", "set": "dev_spont39", "params": 315488945, "seconds": 873.9356803894043, "audio_s": 5273.460000000001, "model": "Adriatogi/wav2vec2-puno-quechua-ft-cpt-validated", "decoder": "fairseq_ctc greedy"}

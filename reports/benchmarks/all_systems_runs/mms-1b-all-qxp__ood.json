@@ -1,0 +1,1 @@
+{"name": "mms-1b-all-qxp", "set": "ood", "params": 964733122, "seconds": 397.59333062171936, "audio_s": 954.5008125000002, "model": "robertp408/mms-1b-all-qxp", "decoder": "ctc greedy"}

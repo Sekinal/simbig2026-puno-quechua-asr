@@ -1,0 +1,7 @@
+role,subset,wer,cer,n,model
+dev_scripted,all,21.656554998681088,3.5447063224841,948,wav2vec2-base-qxp-finetuned
+dev_scripted,unseen,24.30939226519337,3.635183382018825,93,wav2vec2-base-qxp-finetuned
+dev_spont,all,40.553074544829954,7.392906050494726,310,wav2vec2-base-qxp-finetuned
+itest_scripted,all,22.95128132920304,4.2934818645978385,909,wav2vec2-base-qxp-finetuned
+itest_scripted,unseen,23.897058823529413,4.511278195488721,69,wav2vec2-base-qxp-finetuned
+itest_spont,all,14.391014391014393,1.8034604268123688,304,wav2vec2-base-qxp-finetuned

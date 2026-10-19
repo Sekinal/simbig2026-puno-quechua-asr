@@ -1,0 +1,1 @@
+{"name": "omniASR_CTC_300M_v2", "set": "ood", "params": 325982896, "seconds": 168.8065345287323, "audio_s": 954.5008125000002, "model": "omniASR_CTC_300M_v2", "decoder": "pipeline"}

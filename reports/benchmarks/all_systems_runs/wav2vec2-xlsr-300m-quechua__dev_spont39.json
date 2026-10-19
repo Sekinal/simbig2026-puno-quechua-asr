@@ -1,0 +1,1 @@
+{"name": "wav2vec2-xlsr-300m-quechua", "set": "dev_spont39", "params": 315482795, "seconds": 1121.0948402881622, "audio_s": 5273.460000000001, "model": "ivangtorre/wav2vec2-xlsr-300m-quechua", "decoder": "ctc greedy"}

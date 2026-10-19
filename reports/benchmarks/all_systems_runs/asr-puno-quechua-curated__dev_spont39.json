@@ -1,0 +1,1 @@
+{"name": "asr-puno-quechua-curated", "set": "dev_spont39", "params": 315489970, "seconds": 869.9381589889526, "audio_s": 5273.460000000001, "model": "ayayon/asr-puno-quechua-curated", "decoder": "fairseq_ctc greedy"}

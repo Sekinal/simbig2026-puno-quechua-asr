@@ -1,0 +1,1 @@
+{"name": "ssc-qxp-mms-model-mix-adapt-max-longcv2", "set": "ood", "params": 964743370, "seconds": 398.7401633262634, "audio_s": 954.5008125000002, "model": "ctaguchi/ssc-qxp-mms-model-mix-adapt-max-longcv2", "decoder": "ctc greedy"}

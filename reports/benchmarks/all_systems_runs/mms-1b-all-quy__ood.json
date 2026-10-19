@@ -1,0 +1,1 @@
+{"name": "mms-1b-all-quy", "set": "ood", "params": 964698535, "seconds": 395.6544351577759, "audio_s": 954.5008125000002, "model": "facebook/mms-1b-all", "decoder": "ctc greedy"}

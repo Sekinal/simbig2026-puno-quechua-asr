@@ -1,0 +1,1 @@
+{"name": "whisper-quz", "set": "ood", "params": 763857920, "seconds": 901.596040725708, "audio_s": 954.5008125000002, "model": "Epiph0nE/whisper-quz", "decoder": "whisper greedy"}

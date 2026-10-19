@@ -1,0 +1,1 @@
+{"name": "mms-1b-all-quz", "set": "dev_spont39", "params": 964699816, "seconds": 2245.970029592514, "audio_s": 5273.460000000001, "model": "facebook/mms-1b-all", "decoder": "ctc greedy"}
