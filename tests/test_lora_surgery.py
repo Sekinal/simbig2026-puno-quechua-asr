@@ -1,10 +1,12 @@
 import sys
 from pathlib import Path
 
-import torch
+import pytest
+
+torch = pytest.importorskip("torch")  # GPU environment only; skipped in the CPU analysis env
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
-from lora_surgery import SCALE, pad, svd_factors, truncate
+from lora_surgery import SCALE, pad, svd_factors, truncate  # noqa: E402
 
 
 def _lora(out_dim=40, in_dim=30, r=6, seed=0):
