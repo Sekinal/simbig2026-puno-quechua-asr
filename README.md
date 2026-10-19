@@ -5,6 +5,7 @@
 This repository holds the code, experiment scripts, paper source and talk-video pipeline for our system in **Task 1 of the SIMBig 2026 shared task**: speech recognition for Puno Quechua (ISO 639-3 `qxp`), built only from the provided Common Voice data (Scripted Speech 27.0, Spontaneous Speech 5.0) and public pretrained models.
 
 - Paper (LNCS, 8 pages): LaTeX source in [`docs/paper/`](docs/paper/main.tex)
+- Trained weights (LoRA adapters, fine-tuned CTC model): [huggingface.co/Thermostatic/simbig2026-puno-quechua-asr](https://huggingface.co/Thermostatic/simbig2026-puno-quechua-asr)
 - Talk video (15 min): pipeline in [`docs/video/`](docs/video/)
 - Every number in the paper: [`reports/RESULTS.md`](reports/RESULTS.md) (full experiment log, including negative results) and [`reports/paper_stats.md`](reports/paper_stats.md) (all intervals)
 
